@@ -1,0 +1,377 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    @apply bg-slate-50 text-navy-900 transition-colors duration-300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dark body,
+  html.dark {
+    @apply bg-navy-950 text-gray-100;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-navy-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-navy-300 dark:bg-navy-600 rounded-full;
+  }
+}
+
+@layer components {
+
+  /* === BACKGROUNDS === */
+  .bg-app {
+    @apply bg-slate-50 dark:bg-navy-950 min-h-screen;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(13, 27, 110, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(13, 27, 110, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: local;
+    will-change: auto;
+    contain: layout style;
+  }
+
+  .dark .bg-grid {
+    background-image:
+      linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: local;
+    will-change: auto;
+    contain: layout style;
+  }
+
+  .bg-glow {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%,
+        rgba(13, 27, 110, 0.08), transparent);
+  }
+
+  .dark .bg-glow {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%,
+        rgba(34, 211, 238, 0.1), transparent);
+  }
+
+  /* === CARDS === */
+  .glass-card {
+    @apply bg-white dark:bg-white/[0.04] backdrop-blur-sm border border-gray-100 dark:border-white/[0.08] rounded-2xl shadow-card;
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .dark .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-card-glow {
+    @apply glass-card;
+    box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.15),
+      0 4px 24px rgba(34, 211, 238, 0.08),
+      0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  /* === BUTTONS === */
+  .btn-primary {
+    @apply relative overflow-hidden font-semibold text-sm px-5 py-2.5 rounded-xl text-white transition-all duration-200 cursor-pointer border-0 active:scale-95 select-none;
+    background: linear-gradient(135deg, #0d1b6e 0%, #1a44ff 100%);
+    box-shadow: 0 2px 8px rgba(13, 27, 110, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .btn-primary {
+    background: linear-gradient(135deg, #1a44ff 0%, #22d3ee 100%);
+    box-shadow: 0 2px 16px rgba(34, 211, 238, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(13, 27, 110, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .btn-primary:hover {
+    box-shadow: 0 4px 24px rgba(34, 211, 238, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-ghost {
+    @apply font-medium text-sm px-4 py-2 rounded-xl border cursor-pointer transition-all duration-200 active:scale-95 select-none;
+    @apply border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300;
+    @apply bg-white/60 dark:bg-white/[0.04];
+    @apply hover:bg-gray-50 dark:hover:bg-white/[0.08] hover:border-gray-300 dark:hover:border-white/20;
+  }
+
+  /* === INPUTS === */
+  .input-field {
+    @apply w-full px-4 py-2.5 text-sm rounded-xl transition-all duration-200 text-navy-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .input-field {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: #1a44ff;
+    box-shadow: 0 0 0 3px rgba(26, 68, 255, 0.12);
+  }
+
+  .dark .input-field:focus {
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.12);
+  }
+
+  /* === SELECT DROPDOWN STYLING === */
+  select.input-field {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  .dark select.input-field {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%9CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  }
+
+  select.input-field:hover {
+    border-color: rgba(26, 68, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+
+  .dark select.input-field:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+
+  select.input-field option {
+    color: #0f1542;
+    background-color: #ffffff;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .dark select.input-field option {
+    color: #f1f5f9;
+    background-color: #0f172a;
+    background-image: linear-gradient(
+      rgba(34, 211, 238, 0.2),
+      rgba(34, 211, 238, 0.2)
+    );
+  }
+
+  select.input-field option:hover {
+    background-color: #dbeafe;
+  }
+
+  .dark select.input-field option:hover {
+    background-color: rgba(34, 211, 238, 0.3);
+  }
+
+  select.input-field option:checked {
+    background: linear-gradient(
+      rgba(26, 68, 255, 0.15),
+      rgba(26, 68, 255, 0.15)
+    );
+    background-color: #eff6ff;
+    color: #1a44ff;
+    font-weight: 500;
+  }
+
+  .dark select.input-field option:checked {
+    background: linear-gradient(
+      rgba(34, 211, 238, 0.25),
+      rgba(34, 211, 238, 0.25)
+    );
+    background-color: rgba(34, 211, 238, 0.15);
+    color: #22d3ee;
+    font-weight: 500;
+  }
+
+  /* === TAGS & BADGES === */
+  .skill-tag {
+    @apply px-3 py-1 rounded-full text-xs font-medium bg-navy-50 dark:bg-navy-800/60 text-navy-700 dark:text-cyan-300 border border-navy-100 dark:border-navy-700/60;
+  }
+
+  .badge-success {
+    @apply px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800/40;
+  }
+
+  .badge-warning {
+    @apply px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-800/40;
+  }
+
+  .badge-danger {
+    @apply px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-50 dark:bg-red-900/20 text-red-500 dark:text-red-400 border border-red-100 dark:border-red-800/40;
+  }
+
+  .badge-info {
+    @apply px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800/40;
+  }
+
+  /* === NAVBAR === */
+  .nav-link {
+    @apply px-3 py-1.5 rounded-lg text-sm font-medium cursor-pointer border-0 text-gray-500 dark:text-gray-400 bg-transparent hover:text-navy-800 dark:hover:text-white hover:bg-navy-50 dark:hover:bg-white/[0.06] transition-all duration-200;
+  }
+
+  .nav-link-active {
+    @apply text-navy-800 dark:text-cyan-400 bg-navy-50 dark:bg-cyan-400/10 border border-navy-100 dark:border-cyan-400/20;
+  }
+
+  /* === STAT CARDS === */
+  .stat-card {
+    @apply glass-card p-5 flex flex-col gap-1;
+  }
+
+  .stat-value {
+    @apply text-3xl font-display font-bold text-navy-900 dark:text-white;
+  }
+
+  .stat-label {
+    @apply text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500;
+  }
+
+  /* === SECTION HEADERS === */
+  .page-title {
+    @apply text-3xl font-display font-bold text-navy-900 dark:text-white mb-1;
+  }
+
+  .page-sub {
+    @apply text-sm text-gray-400 dark:text-gray-500 mb-8;
+  }
+
+  /* === GLOW DOT === */
+  .glow-dot {
+    @apply w-2 h-2 rounded-full bg-cyan-400 animate-pulse-slow;
+    box-shadow: 0 0 8px rgba(34, 211, 238, 0.8);
+  }
+}
+
+/* Shimmer loading effect */
+.shimmer {
+  background: linear-gradient(90deg,
+      transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ============================================
+   SCROLL PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Force GPU acceleration on main containers */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Promote heavy elements to their own GPU layer */
+.glass-card {
+  will-change: auto;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Navbar stays crisp while scrolling */
+nav {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Prevent layout shifts during scroll */
+img,
+svg {
+  content-visibility: auto;
+}
+
+/* Optimize background grid rendering */
+.bg-grid {
+  will-change: auto;
+  contain: layout style;
+}
+
+/* Smooth tag animations without lag */
+.skill-tag,
+.badge-success,
+.badge-danger,
+.badge-warning,
+.badge-info,
+.badge-info {
+  transform: translateZ(0);
+}
+
+/* Optimize recharts rendering */
+.recharts-wrapper {
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/* Remove expensive animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Contain paint for cards — browser only repaints changed card */
+.glass-card {
+  contain: layout style paint;
+}
+
+/* Optimize long lists */
+.skill-tags-container {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 200px;
+}
+
+/* Prevent text blur during scroll */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fix scroll jank on mobile */
+.page-scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
