@@ -1,3 +1,5 @@
+# backend/services/gap_analyzer.py
+
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
@@ -19,7 +21,7 @@ def get_skill_weight(skill: str) -> float:
     return SKILL_WEIGHTS.get(skill.lower(), 1.0)
 
 def calculate_semantic_similarity(skill1: str, skill2: str) -> float:
-    embeddings = model.encode([skill1, skill2])
+    embeddings = model.encode([skill1, skill2], show_progress_bar=False)
     similarity = cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
     return float(similarity)
 
@@ -28,11 +30,20 @@ def find_similar_skills(
     required_skills: list,
     threshold: float = 0.75
 ) -> list:
+    if not required_skills:
+        return []
+
+    # Encode user skill + all required skills in one batch
+    all_skills = [user_skill] + [s for s in required_skills if s.lower() != user_skill.lower()]
+    embeddings = model.encode(all_skills, batch_size=64, show_progress_bar=False)
+
+    user_embedding = embeddings[0]
+    req_embeddings = embeddings[1:]
+    similarities = cosine_similarity([user_embedding], req_embeddings)[0]
+
     similar = []
-    for req_skill in required_skills:
-        if user_skill.lower() == req_skill.lower():
-            continue
-        similarity = calculate_semantic_similarity(user_skill, req_skill)
+    for i, req_skill in enumerate(all_skills[1:]):
+        similarity = float(similarities[i])
         if similarity >= threshold:
             similar.append({
                 "skill": req_skill,
@@ -47,33 +58,43 @@ def analyze_skill_gap(
     user_skills_lower = [s.lower() for s in user_skills]
     required_skills_lower = [s.lower() for s in required_skills]
 
-    exactly_matched = []
-    semantically_matched = []
-    missing_skills = []
-
-    for req_skill in required_skills_lower:
-        if req_skill in user_skills_lower:
-            exactly_matched.append(req_skill)
-        else:
-            is_semantic_match = False
-            for user_skill in user_skills_lower:
-                similarity = calculate_semantic_similarity(user_skill, req_skill)
-                if similarity >= 0.78:
-                    semantically_matched.append({
-                        "required_skill": req_skill,
-                        "matched_with": user_skill,
-                        "similarity": round(similarity, 2)
-                    })
-                    is_semantic_match = True
-                    break
-            if not is_semantic_match:
-                missing_skills.append(req_skill)
-
     total_required = len(required_skills_lower)
     if total_required == 0:
         return {
             "error": "No required skills found for this role"
         }
+
+    # Separate exact matches before encoding — no embeddings needed for these
+    exact_match_set = set(user_skills_lower) & set(required_skills_lower)
+    skills_needing_embedding = [s for s in required_skills_lower if s not in exact_match_set]
+
+    exactly_matched = [s for s in required_skills_lower if s in exact_match_set]
+    semantically_matched = []
+    missing_skills = []
+
+    if skills_needing_embedding:
+        # Encode ALL remaining user + required skills in two batches (not per pair)
+        all_skills = user_skills_lower + skills_needing_embedding
+        all_embeddings = model.encode(all_skills, batch_size=64, show_progress_bar=False)
+
+        user_embeddings = all_embeddings[:len(user_skills_lower)]
+        req_embeddings = all_embeddings[len(user_skills_lower):]
+
+        # Full similarity matrix in one shot: shape (n_required, n_user)
+        sim_matrix = cosine_similarity(req_embeddings, user_embeddings)
+
+        for i, req_skill in enumerate(skills_needing_embedding):
+            best_idx = int(np.argmax(sim_matrix[i]))
+            best_score = float(sim_matrix[i][best_idx])
+
+            if best_score >= 0.78:
+                semantically_matched.append({
+                    "required_skill": req_skill,
+                    "matched_with": user_skills_lower[best_idx],
+                    "similarity": round(best_score, 2)
+                })
+            else:
+                missing_skills.append(req_skill)
 
     exact_score = sum(
         get_skill_weight(s) for s in exactly_matched
