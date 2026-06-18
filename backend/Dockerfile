@@ -16,4 +16,4 @@ COPY . .
 ENV PORT=8000
 
 # Start the app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "python services/train_resume_classifier.py && uvicorn main:app --host 0.0.0.0 --port 8000"]
