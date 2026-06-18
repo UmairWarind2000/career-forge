@@ -33,7 +33,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://localhost:3001",
-        "https://career-forge.vercel.app",
+        "https://career-forge-indol.vercel.app",
         "https://career-forge-git-main-UmairWarind2000.vercel.app",
     ],
     allow_credentials=True,
