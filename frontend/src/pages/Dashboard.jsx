@@ -166,7 +166,19 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
           {/* Skills */}
-          <SkillTags skills={resume.parsed_data.skills} maxVisible={20} />
+          {resume ? (
+            <SkillTags skills={resume.parsed_data?.skills ?? []} maxVisible={20} />
+          ) : (
+            <div className="glass-card p-6 flex flex-col items-center justify-center text-center gap-2 min-h-[180px]">
+              <p className="text-sm text-gray-400">No resume uploaded yet</p>
+              <button
+                onClick={() => navigate('/upload')}
+                className="btn-primary dark px-4 py-2 text-xs mt-2"
+              >
+                Upload Resume →
+              </button>
+            </div>
+          )}
 
           {/* Quick Actions */}
           <div className="glass-card p-6">
