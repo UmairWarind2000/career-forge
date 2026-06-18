@@ -33,12 +33,13 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://localhost:3001",
+        "https://career-forge.vercel.app",
+        "https://career-forge-git-main-UmairWarind2000.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
     start = time.time()
