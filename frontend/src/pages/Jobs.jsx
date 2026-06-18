@@ -132,7 +132,7 @@ export default function Jobs() {
         return `${Math.floor(days / 30)} months ago`;
     };
 
-}
+
 
 return (
     <div className="bg-app bg-grid min-h-screen flex flex-col">
