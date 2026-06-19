@@ -2,7 +2,6 @@ import { useState, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-
 function Navbar() {
   const { user, logout } = useAuth();
   const { dark, toggle } = useTheme();
@@ -29,10 +28,13 @@ function Navbar() {
           className="flex items-center gap-2.5 border-0 bg-transparent cursor-pointer group"
         >
           <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-display font-bold shadow-glow-navy transition-transform group-hover:scale-105"
-            style={{ background: 'linear-gradient(135deg, #0d1b6e, #1a44ff)' }}
+            className="w-8 h-8 rounded-lg flex items-center justify-center shadow-glow-navy transition-transform group-hover:scale-105"
           >
-            SG
+            <img
+              src="/images/logo.png"  // Replace with your actual image path
+              alt="Career-forge Logo"
+              className="w-full h-full object-cover rounded-lg"
+            />
           </div>
           <span className="font-display font-bold text-navy-900 dark:text-white text-base tracking-tight hidden sm:block">
             SkillGap<span className="text-blue-500 dark:text-cyan-400">AI</span>

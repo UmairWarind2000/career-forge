@@ -10,9 +10,12 @@ function Footer() {
 
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-display font-bold"
-                style={{ background: 'linear-gradient(135deg,#0d1b6e,#1a44ff)' }}>
-                SG
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                <img
+                  src="/images/logo.png"  // Replace with your actual image filename in public/
+                  alt="SkillGapAI Logo"
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
               <span className="font-display font-bold text-navy-900 dark:text-white">
                 SkillGap<span className="text-blue-500 dark:text-cyan-400">AI</span>
