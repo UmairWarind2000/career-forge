@@ -37,9 +37,12 @@ export default function Login() {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-display font-bold text-lg mx-auto mb-4 shadow-glow-cyan"
-            style={{ background: 'linear-gradient(135deg, #0d1b6e, #22d3ee)' }}>
-            SG
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-glow-cyan mx-auto mb-4">
+            <img
+              src="/images/logo.png"  // Replace with your actual image filename in public/
+              alt="Career-Forge Logo"
+              className="w-full h-full object-cover rounded-2xl"
+            />
           </div>
           <h1 className="text-3xl font-display font-bold text-white mb-1">
             Welcome back

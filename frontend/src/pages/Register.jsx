@@ -4,13 +4,13 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
 const ROLES = [
-  'Frontend Developer','Backend Developer','Full Stack Developer',
-  'Data Scientist','DevOps Engineer','Machine Learning Engineer',
-  'React Developer','Python Developer','Node.js Developer',
+  'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
+  'Data Scientist', 'DevOps Engineer', 'Machine Learning Engineer',
+  'React Developer', 'Python Developer', 'Node.js Developer',
 ];
 
 export default function Register() {
-  const [form, setForm] = useState({ fullName:'', email:'', password:'', targetRole:'' });
+  const [form, setForm] = useState({ fullName: '', email: '', password: '', targetRole: '' });
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -39,9 +39,12 @@ export default function Register() {
 
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-display font-bold text-lg mx-auto mb-4 shadow-glow-cyan"
-            style={{ background: 'linear-gradient(135deg, #0d1b6e, #22d3ee)' }}>
-            SG
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-glow-cyan mx-auto mb-4">
+            <img
+              src="/images/logo.png"  // Replace with your actual image path in public/
+              alt="Career-Forge Logo"
+              className="w-full h-full object-cover rounded-2xl"
+            />
           </div>
           <h1 className="text-3xl font-display font-bold text-white mb-1">Start your journey</h1>
           <p className="text-sm text-gray-400">Create your SkillGapAI account</p>
@@ -50,9 +53,9 @@ export default function Register() {
         <div className="glass-card p-8 dark">
           <form onSubmit={handleSubmit} className="space-y-4">
             {[
-              { label:'Full Name', key:'fullName', type:'text', placeholder:'Ahmed Ali' },
-              { label:'Email', key:'email', type:'email', placeholder:'you@example.com' },
-              { label:'Password', key:'password', type:'password', placeholder:'••••••••' },
+              { label: 'Full Name', key: 'fullName', type: 'text', placeholder: 'Ahmed Ali' },
+              { label: 'Email', key: 'email', type: 'email', placeholder: 'you@example.com' },
+              { label: 'Password', key: 'password', type: 'password', placeholder: '••••••••' },
             ].map(f => (
               <div key={f.key}>
                 <label className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">

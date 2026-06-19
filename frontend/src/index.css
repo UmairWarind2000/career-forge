@@ -151,71 +151,38 @@
   /* === SELECT DROPDOWN STYLING === */
   select.input-field {
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'><path stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/></svg>");
     background-position: right 0.75rem center;
     background-repeat: no-repeat;
-    background-size: 1.5em 1.5em;
+    background-size: 1.1em 1.1em;
     padding-right: 2.5rem;
   }
 
   .dark select.input-field {
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'><path stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/></svg>");
+    background-repeat: no-repeat;
   }
 
   select.input-field:hover {
     border-color: rgba(26, 68, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.95);
   }
 
   .dark select.input-field:hover {
     border-color: rgba(34, 211, 238, 0.3);
-    background-color: rgba(255, 255, 255, 0.06);
   }
 
   select.input-field option {
     color: #0f1542;
     background-color: #ffffff;
     padding: 8px 12px;
-    margin: 4px 0;
-    border-radius: 6px;
     font-size: 14px;
   }
 
   .dark select.input-field option {
     color: #f1f5f9;
     background-color: #0f172a;
-    background-image: linear-gradient(
-      rgba(34, 211, 238, 0.2),
-      rgba(34, 211, 238, 0.2)
-    );
-  }
-
-  select.input-field option:hover {
-    background-color: #dbeafe;
-  }
-
-  .dark select.input-field option:hover {
-    background-color: rgba(34, 211, 238, 0.3);
-  }
-
-  select.input-field option:checked {
-    background: linear-gradient(
-      rgba(26, 68, 255, 0.15),
-      rgba(26, 68, 255, 0.15)
-    );
-    background-color: #eff6ff;
-    color: #1a44ff;
-    font-weight: 500;
-  }
-
-  .dark select.input-field option:checked {
-    background: linear-gradient(
-      rgba(34, 211, 238, 0.25),
-      rgba(34, 211, 238, 0.25)
-    );
-    background-color: rgba(34, 211, 238, 0.15);
-    color: #22d3ee;
-    font-weight: 500;
   }
 
   /* === TAGS & BADGES === */

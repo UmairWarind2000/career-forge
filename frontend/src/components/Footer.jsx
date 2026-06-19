@@ -18,7 +18,7 @@ function Footer() {
                 />
               </div>
               <span className="font-display font-bold text-navy-900 dark:text-white">
-                SkillGap<span className="text-blue-500 dark:text-cyan-400">AI</span>
+                Career-<span className="text-blue-500 dark:text-cyan-400">Forge</span>
               </span>
             </div>
             <p className="text-sm text-gray-400 dark:text-gray-500 leading-relaxed max-w-xs">
