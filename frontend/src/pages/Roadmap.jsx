@@ -14,7 +14,7 @@ export default function Roadmap() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
+ useEffect(() => {
     jobsAPI.getRoles().then(r => setRoles(r.data.roles));
 
     // Priority: role passed from Skill Gap page > role saved from last analysis
@@ -28,6 +28,7 @@ export default function Roadmap() {
     } else {
       roadmapAPI.getLatest().then(r => setRoadmap(r.data)).catch(() => {});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const generate = async (targetRole = role, isAuto = false) => {
