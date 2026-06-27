@@ -22,7 +22,7 @@ export default function GapAnalysis() {
     }
     setLoading(true);
     try {
-      const res = await gapAPI.analyze({ target_role: selectedRole });
+      const res = await gapAPI.analyze({ target_role: role });
       setResult(res.data);
       // Save the analyzed role so Roadmap page can use it automatically
       localStorage.setItem('lastAnalyzedRole', role);
