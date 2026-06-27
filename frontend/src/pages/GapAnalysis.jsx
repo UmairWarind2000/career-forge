@@ -15,17 +15,24 @@ export default function GapAnalysis() {
 
   useEffect(() => { jobsAPI.getRoles().then(r => setRoles(r.data.roles)); }, []);
 
-  const analyze = async () => {
-    if (!role) { toast.error('Select a role first'); return; }
+ const handleAnalyze = async () => {
+    if (!selectedRole) {
+      toast.error('Please select a target role');
+      return;
+    }
     setLoading(true);
     try {
-      const res = await gapAPI.analyze({ target_role: role });
+      const res = await gapAPI.analyze({ target_role: selectedRole });
       setResult(res.data);
+      // Save the analyzed role so Roadmap page can use it automatically
+      localStorage.setItem('lastAnalyzedRole', selectedRole);
       toast.success('Analysis complete!');
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Analysis failed');
-    } finally { setLoading(false); }
-  };
+    } finally {
+      setLoading(false);
+    }
+};
 
   const scoreVal = result?.analysis?.readiness_score || 0;
   const scoreColor = scoreVal >= 80 ? '#10b981' : scoreVal >= 60 ? '#22d3ee' : scoreVal >= 40 ? '#f59e0b' : '#ef4444';
@@ -64,7 +71,7 @@ export default function GapAnalysis() {
                 </svg>
               </div>
             </div>
-            <button onClick={analyze} disabled={loading || !role}
+            <button onClick={handleAnalyze} disabled={loading || !role}
               className="btn-primary px-8 py-2.5 whitespace-nowrap"
               style={{ opacity: loading || !role ? 0.6 : 1 }}>
               {loading ? (
@@ -171,8 +178,8 @@ export default function GapAnalysis() {
             )}
 
             <div className="flex gap-3 flex-col sm:flex-row">
-              <button onClick={() => navigate('/roadmap')} className="btn-primary flex-1 py-3.5">
-                Generate Roadmap →
+              <button onClick={() => navigate('/roadmap', { state: { targetRole: selectedRole } })} className="btn-primary flex-1 py-3.5">
+                Generate Learning Roadmap
               </button>
               <button onClick={() => navigate('/courses')} className="btn-ghost flex-1 py-3.5">
                 Find Courses
