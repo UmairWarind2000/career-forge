@@ -16,7 +16,7 @@ export default function GapAnalysis() {
   useEffect(() => { jobsAPI.getRoles().then(r => setRoles(r.data.roles)); }, []);
 
  const handleAnalyze = async () => {
-    if (!selectedRole) {
+    if (!role) {
       toast.error('Please select a target role');
       return;
     }
@@ -25,7 +25,7 @@ export default function GapAnalysis() {
       const res = await gapAPI.analyze({ target_role: selectedRole });
       setResult(res.data);
       // Save the analyzed role so Roadmap page can use it automatically
-      localStorage.setItem('lastAnalyzedRole', selectedRole);
+      localStorage.setItem('lastAnalyzedRole', role);
       toast.success('Analysis complete!');
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Analysis failed');
@@ -178,7 +178,7 @@ export default function GapAnalysis() {
             )}
 
             <div className="flex gap-3 flex-col sm:flex-row">
-              <button onClick={() => navigate('/roadmap', { state: { targetRole: selectedRole } })} className="btn-primary flex-1 py-3.5">
+              <button onClick={() => navigate('/roadmap', { state: { targetRole: role } })} className="btn-primary flex-1 py-3.5">
                 Generate Learning Roadmap
               </button>
               <button onClick={() => navigate('/courses')} className="btn-ghost flex-1 py-3.5">
